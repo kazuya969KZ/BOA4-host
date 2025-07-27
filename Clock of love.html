@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jam Berbentuk Hati</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #ff99cc, #ffe6f0);
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Jam dalam hati besar */
+    .heart-clock {
+      position: relative;
+      width: 200px;
+      height: 170px;
+    }
+
+    .heart-clock::before,
+    .heart-clock::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 160px;
+      background: red;
+      border-radius: 50px 50px 0 0;
+      top: 0;
+      left: 50px;
+      transform: rotate(-45deg);
+      transform-origin: bottom right;
+    }
+
+    .heart-clock::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: bottom left;
+    }
+
+    .time {
+      position: absolute;
+      top: 60px;
+      width: 100%;
+      text-align: center;
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    /* Hati kecil terbang */
+    .floating-heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: pink;
+      transform: rotate(-45deg);
+      animation: float 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    .floating-heart::before,
+    .floating-heart::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .floating-heart::before {
+      top: -7.0px;
+      left: 0;
+    }
+
+    .floating-heart::after {
+      left: 7.0px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(-45deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-clock">
+    <div class="time" id="clock">00:00:00</div>
+  </div>
+
+  <script>
+    // Jam real-time
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Generate hati terbang
+    function createFloatingHeart() {
+      const heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createFloatingHeart, 300);
+  </script>
+</body>
+</html>

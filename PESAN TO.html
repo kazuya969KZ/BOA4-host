@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kirim Pesan ke WhatsApp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f5f5f5;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1ebe5b;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="waForm">
+    <h2>Kirim Pesan WhatsApp</h2>
+    <label>Nomor WhatsApp (tanpa + atau 0):</label>
+    <input type="text" id="phone" placeholder="Contoh: 6281234567890" required>
+    
+    <label>Pesan:</label>
+    <textarea id="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+    
+    <button type="submit">Kirim ke WhatsApp</button>
+  </form>
+
+  <script>
+    document.getElementById('waForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (phone && message) {
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+      } else {
+        alert('Silakan isi nomor dan pesan.');
+      }
+    });
+  </script>
+
+</body>
+</html>
